@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Camera))]
 public class ScreenShot : MonoBehaviour {
 
     public Material cloakMat;
@@ -9,20 +8,19 @@ public class ScreenShot : MonoBehaviour {
     Camera cam;
 
     void Start() {
-        cam = GetComponent<Camera>();
+        cam = Camera.main;
     }
 
-    void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            TakePicture();
-        }
-    }
-
-    void TakePicture() {
+    public void TakePicture() {
+        Debug.Log("Taking Picture...");
         StartCoroutine(PictureRoutine());
     }
 
     IEnumerator PictureRoutine() {
+
+        //turn off mask while taking picture if you want to tint cloak color
+        cloakMat.SetFloat("_TakingPicture", 1);
+
         yield return new WaitForEndOfFrame();
 
         int width = Screen.width;
@@ -45,5 +43,7 @@ public class ScreenShot : MonoBehaviour {
         RenderTexture.active = null;
 
         Destroy(renderTexture);
+
+        cloakMat.SetFloat("_TakingPicture", 0);
     }
 }
