@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public class ScreenShot : MonoBehaviour {
 
     public Material cloakMat;
+    public ForwardRendererData forwardRenderer;
 
     Camera cam;
 
@@ -18,8 +20,9 @@ public class ScreenShot : MonoBehaviour {
 
     IEnumerator PictureRoutine() {
 
-        //turn off mask while taking picture if you want to tint cloak color
-        cloakMat.SetFloat("_TakingPicture", 1);
+        //turn off render feature while taking picture
+        var renderFeature = forwardRenderer.rendererFeatures[0];
+        renderFeature.SetActive(false);
 
         yield return new WaitForEndOfFrame();
 
@@ -44,6 +47,7 @@ public class ScreenShot : MonoBehaviour {
 
         Destroy(renderTexture);
 
-        cloakMat.SetFloat("_TakingPicture", 0);
+        //reactive render feature
+        renderFeature.SetActive(true);
     }
 }

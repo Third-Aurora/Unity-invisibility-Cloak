@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: NewRenderObjects
-    Event: 1000
+    Event: 500
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -36,7 +36,7 @@ MonoBehaviour:
       zFailOperation: 0
     cameraSettings:
       overrideCamera: 0
-      restoreCamera: 1
+      restoreCamera: 0
       offset: {x: 7.8, y: -0.81, z: -4, w: 1}
       cameraFieldOfView: 4
 --- !u!114 &11400000
